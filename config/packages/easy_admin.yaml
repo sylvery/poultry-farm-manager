@@ -9,3 +9,5 @@ easy_admin:
                 fields: ['name', 'type', 'dateAcquired', 'numberOfMales', 'numberOfFemales', 'costPerBird']
         Type:
             class: 'App\Entity\Type'
+        Expense:
+            class: 'App\Entity\Expense'
