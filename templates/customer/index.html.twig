@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Customers {{parent()}}{% endblock %}
+
+{% block body %}
+    <div class="container mb-5">
+        {{ include('defaults/pagetitle.html.twig',{title:"All Customers", subtitle:"Manage all customers in this page"})}}
+        <div class="col">
+            <div class="list-group mb-3">
+                {% for customer in customers %}
+                <a class="bg-info text-light list-group-item list-group-item-action" role="button" href="{{path('customer_show',{id: customer.id})}}">{{customer.name}}</a>
+                {% endfor %}
+            </div>
+            <a class="btn btn-outline-primary mb-3" role="button" href="{{ path('customer_new') }}">Create new</a>
+        </div>
+    </div>
+{% endblock %}

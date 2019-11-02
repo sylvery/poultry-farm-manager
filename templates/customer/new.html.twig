@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Customer{% endblock %}
+
+{% block body %}
+    <div class="container py-3 mb-2">
+        {{ include('defaults/pagetitle.html.twig',{title:"New Customer", subtitle:"Add a new customer for your business"})}}
+        <div class="col">
+			    {{ include('customer/_form.html.twig') }}
+        </div>
+    </div>
+{% endblock %}

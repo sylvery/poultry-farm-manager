@@ -1,0 +1,77 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Transaction{% endblock %}
+
+{% block body %}
+    <div class="container py-3 mb-2">
+        {{ include('defaults/pagetitle.html.twig',{title:"New Transaction", subtitle:"Use the form below to register a new transaction. Click save when finished"})}}
+    	{# {{ include('transaction/_form.html.twig') }} #}
+        {{ form_start(form) }}
+        <div class="row">
+            <div class="col-6">
+            {{ form_row(form.type) }}
+            {{ form_row(form.customer) }}
+            {{ form_row(form.cashier) }}
+            </div>
+            <div class="col-6">
+            {# <p>{{ form_row(form.items)}}</p> #}
+            <p>{{ form_row(form.total)}}</p>
+            </div>
+            <button class="btn btn-success btn-lg">{{ button_label|default('Save') }}</button>
+        </div>
+        {{ form_end(form) }}
+
+    	<a class="btn btn-primary btn-sm" role="button" href="{{ path('transaction_index') }}">back to list</a>
+    </div>
+    <script>
+        /**
+        var $collectionHolder;
+
+        // setup an "add an item" link
+        var $addItemButton = $('<button type="button" class="add_item_link btn btn-warning btn-block btn-sm text-light">Add an Item</button>');
+        var $newLinkLi = $('<li class="list-group-item"></li>').append($addItemButton);
+
+        jQuery(document).ready(function() {
+            // Get the ul that holds the collection of items
+            $collectionHolder = $('ul.items');
+
+            // add the "add an item" anchor and li to the items ul
+            $collectionHolder.append($newLinkLi);
+
+            // count the current form inputs we have (e.g. 2), use that as the new
+            // index when inserting a new item (e.g. 2)
+            $collectionHolder.data('index', $collectionHolder.find(':input').length);
+
+            $addItemButton.on('click', function(e) {
+                // add a new item form (see next code block)
+                addItemForm($collectionHolder, $newLinkLi);
+            });
+        });
+
+        function addItemForm($collectionHolder, $newLinkLi) {
+            // Get the data-prototype explained earlier
+            var prototype = $collectionHolder.data('prototype');
+
+            // get the new index
+            var index = $collectionHolder.data('index');
+
+            var newForm = prototype;
+            // You need this only if you didn't set 'label' => false in your items field in TaskType
+            // Replace '__name__label__' in the prototype's HTML to
+            // instead be a number based on how many items we have
+            // newForm = newForm.replace(/__name__label__/g, index);
+
+            // Replace '__name__' in the prototype's HTML to
+            // instead be a number based on how many items we have
+            newForm = newForm.replace(/__name__/g, index);
+
+            // increase the index with one for the next item
+            $collectionHolder.data('index', index + 1);
+
+            // Display the form in the page in an li, before the "Add a item" link li
+            var $newFormLi = $('<li></li>').append(newForm);
+            $newLinkLi.before($newFormLi);
+        }
+        */
+    </script>
+{% endblock %}

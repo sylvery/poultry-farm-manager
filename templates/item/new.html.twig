@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Item{% endblock %}
+
+{% block body %}
+    <div class="container mb-5">
+        {{ include('defaults/pagetitle.html.twig',{title:"New Item", subtitle:"Add a new item for your business"})}}
+        <div class="col">
+		    {{ include('item/_form.html.twig') }}
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Transaction index{% endblock %}
+
+{% block body %}
+    <div class="container py-2 mb-3">
+    {{ include('defaults/pagetitle.html.twig',{ 
+            title: 'Transactions',
+            subtitle: 'Manage all transactions here'
+        })
+    }}
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Type</th>
+                    <th>Total</th>
+                    <th>actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for transaction in transactions %}
+                <tr>
+                    <td>{{ transaction.id }}</td>
+                    <td>{{ transaction.type }}</td>
+                    <td>{{ transaction.total }}</td>
+                    <td>
+                        <a href="{{ path('transaction_show', {'id': transaction.id}) }}">show</a>
+                        <a href="{{ path('transaction_edit', {'id': transaction.id}) }}">edit</a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="4">no records found</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <a class="btn btn-outline-info" role="button" href="{{ path('transaction_new') }}">New</a>
+    </div>
+{% endblock %}

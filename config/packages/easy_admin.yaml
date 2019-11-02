@@ -1,0 +1,8 @@
+easy_admin:
+    entities:
+        Transaction:
+            class: 'App\Entity\Transaction'
+        Customer:
+            class: 'App\Entity\Customer'
+        Appuser:
+            class: 'App\Entity\Appuser'

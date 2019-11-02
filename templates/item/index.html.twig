@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Item index{% endblock %}
+
+{% block body %}
+    <div class="container mb-5">
+        {{ include('defaults/pagetitle.html.twig',{title:"All Items", subtitle:"Manage all items in this page"})}}
+        <div class="col">
+            <div class="list-group mb-3">
+                {% for item in items %}
+                <a class="bg-info text-light list-group-item list-group-item-action" role="button" href="{{path('item_show',{id: item.id})}}">{{item.name}} <span class="text-dark">{{item.unitPrice}}</span></a>
+                {% endfor %}
+            </div>
+            <a class="btn btn-outline-primary mb-3" role="button" href="{{ path('item_new') }}">Create new</a>
+        </div>
+    </div>
+{% endblock %}

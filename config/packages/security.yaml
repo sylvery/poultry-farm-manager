@@ -1,0 +1,44 @@
+security:
+    encoders:
+        App\Entity\Appuser:
+            algorithm: argon2i
+
+    # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
+    providers:
+        # used to reload user from session & other features (e.g. switch_user)
+        app_user_provider:
+            entity:
+                class: App\Entity\Appuser
+                property: username
+    firewalls:
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+        main:
+            anonymous: true
+            guard:
+                authenticators:
+                    - App\Security\LoginAuthenticator
+            logout:
+                path: app_logout
+                target: app_login
+
+            # activate different ways to authenticate
+
+            # http_basic: true
+            # https://symfony.com/doc/current/security.html#a-configuring-how-your-users-will-authenticate
+
+            # form_login: true
+            # https://symfony.com/doc/current/security/form_login_setup.html
+    role_hierarchy:
+        ROLE_VIEW_CUSTOMER: [ROLE_CASHIER, ROLE_ACCOUNTANT, ROLE_MANAGER]
+        ROLE_MANAGE_CUSTOMER: [ROLE_ADMINISTRATOR, ROLE_MANAGER, ROLE_OWNER]
+        ROLE_SUPER_ADMIN: [ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
+
+    # Easy way to control access for large sections of your site
+    # Note: Only the *first* access control that matches will be used
+    access_control:
+        - { path: ^/customer, roles: [ROLE_VIEW_CUSTOMER, ROLE_ADMINISTRATOR, ROLE_MANAGE_CUSTOMER] }
+        # - { path: ^/manage, roles: ROLE_OWNER }
+        # - { path: ^/admin, roles: ROLE_EMPLOYEE }
+        - { path: ^/transaction, roles: IS_AUTHENTICATED_FULLY }

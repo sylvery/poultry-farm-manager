@@ -1,0 +1,19 @@
+{{ form_start(form) }}
+<div class="row">
+    <div class="col-6">
+    {{ form_row(form.type) }}
+    {{ form_row(form.total) }}
+    {{ form_row(form.customer) }}
+    {{ form_row(form.cashier) }}
+    </div>
+    <div class="col-6">
+    <p class="lead">
+        Items
+    </p>
+    <ul class="items mb-3 px-0 list-group list-unstyled" data-prototype="{{ form_widget(form.items.vars.prototype)|e('html_attr') }}">
+    {{ form_row(form.items) }}
+    </ul>
+    </div>
+    <button class="btn btn-success btn-sm btn-block">{{ button_label|default('Save') }}</button>
+</div>
+{{ form_end(form) }}
