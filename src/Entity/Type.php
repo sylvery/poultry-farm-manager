@@ -33,10 +33,16 @@ class Type
      */
     private $expenses;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Income", mappedBy="type")
+     */
+    private $incomes;
+
     public function __construct()
     {
         $this->batch = new ArrayCollection();
         $this->expenses = new ArrayCollection();
+        $this->incomes = new ArrayCollection();
     }
 
     public function __toString()
@@ -117,6 +123,37 @@ class Type
             // set the owning side to null (unless already changed)
             if ($expense->getType() === $this) {
                 $expense->setType(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Income[]
+     */
+    public function getIncomes(): Collection
+    {
+        return $this->incomes;
+    }
+
+    public function addIncome(Income $income): self
+    {
+        if (!$this->incomes->contains($income)) {
+            $this->incomes[] = $income;
+            $income->setType($this);
+        }
+
+        return $this;
+    }
+
+    public function removeIncome(Income $income): self
+    {
+        if ($this->incomes->contains($income)) {
+            $this->incomes->removeElement($income);
+            // set the owning side to null (unless already changed)
+            if ($income->getType() === $this) {
+                $income->setType(null);
             }
         }
 

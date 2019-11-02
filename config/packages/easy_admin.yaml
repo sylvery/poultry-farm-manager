@@ -11,3 +11,5 @@ easy_admin:
             class: 'App\Entity\Type'
         Expense:
             class: 'App\Entity\Expense'
+        Income:
+            class: 'App\Entity\Income'
