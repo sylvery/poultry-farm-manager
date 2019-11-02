@@ -5,3 +5,7 @@ easy_admin:
             list:
                 fields:
                     - Name
+            new:
+                fields: ['name', 'type', 'dateAcquired', 'numberOfMales', 'numberOfFemales', 'costPerBird']
+        Type:
+            class: 'App\Entity\Type'

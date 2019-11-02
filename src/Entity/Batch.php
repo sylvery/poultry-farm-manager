@@ -22,29 +22,29 @@ class Batch
     private $name;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $type;
-
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $number;
-
-    /**
      * @ORM\Column(type="datetime")
      */
     private $dateAcquired;
 
     /**
-     * @ORM\Column(type="datetime", nullable=true)
-     */
-    private $dateSold;
-
-    /**
      * @ORM\Column(type="float")
      */
     private $costPerBird;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $numberOfMales;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $numberOfFemales;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Type", inversedBy="batch")
+     */
+    private $type;
 
     public function getId(): ?int
     {
@@ -63,30 +63,6 @@ class Batch
         return $this;
     }
 
-    public function getType(): ?string
-    {
-        return $this->type;
-    }
-
-    public function setType(string $type): self
-    {
-        $this->type = $type;
-
-        return $this;
-    }
-
-    public function getNumber(): ?int
-    {
-        return $this->number;
-    }
-
-    public function setNumber(int $number): self
-    {
-        $this->number = $number;
-
-        return $this;
-    }
-
     public function getDateAcquired(): ?\DateTimeInterface
     {
         return $this->dateAcquired;
@@ -99,18 +75,6 @@ class Batch
         return $this;
     }
 
-    public function getDateSold(): ?\DateTimeInterface
-    {
-        return $this->dateSold;
-    }
-
-    public function setDateSold(?\DateTimeInterface $dateSold): self
-    {
-        $this->dateSold = $dateSold;
-
-        return $this;
-    }
-
     public function getCostPerBird(): ?float
     {
         return $this->costPerBird;
@@ -119,6 +83,42 @@ class Batch
     public function setCostPerBird(float $costPerBird): self
     {
         $this->costPerBird = $costPerBird;
+
+        return $this;
+    }
+
+    public function getNumberOfMales(): ?int
+    {
+        return $this->numberOfMales;
+    }
+
+    public function setNumberOfMales(int $numberOfMales): self
+    {
+        $this->numberOfMales = $numberOfMales;
+
+        return $this;
+    }
+
+    public function getNumberOfFemales(): ?int
+    {
+        return $this->numberOfFemales;
+    }
+
+    public function setNumberOfFemales(int $numberOfFemales): self
+    {
+        $this->numberOfFemales = $numberOfFemales;
+
+        return $this;
+    }
+
+    public function getType(): ?Type
+    {
+        return $this->type;
+    }
+
+    public function setType(?Type $type): self
+    {
+        $this->type = $type;
 
         return $this;
     }
