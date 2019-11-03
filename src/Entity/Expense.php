@@ -36,6 +36,16 @@ class Expense
      */
     private $type;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Category", inversedBy="expenses")
+     */
+    private $category;
+
+    public function __toString()
+    {
+        return $this->getDescription();
+    }
+    
     public function getId(): ?int
     {
         return $this->id;
@@ -85,6 +95,18 @@ class Expense
     public function setType(?Type $type): self
     {
         $this->type = $type;
+
+        return $this;
+    }
+
+    public function getCategory(): ?Category
+    {
+        return $this->category;
+    }
+
+    public function setCategory(?Category $category): self
+    {
+        $this->category = $category;
 
         return $this;
     }

@@ -11,5 +11,14 @@ easy_admin:
             class: 'App\Entity\Type'
         Expense:
             class: 'App\Entity\Expense'
+            new:
+                fields:
+                    - {name: date, type: date, property: date}
+                    - description
+                    - amount
+                    - type
+                    - category
         Income:
             class: 'App\Entity\Income'
+        Category:
+            class: 'App\Entity\Category'
