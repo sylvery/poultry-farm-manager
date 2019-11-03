@@ -1,12 +1,24 @@
 easy_admin:
+    design:
+        brand_color: gold
+    site_name: Pato
     entities:
         Batch:
             class: 'App\Entity\Batch'
             list:
                 fields:
-                    - Name
+                    - name
+                    - dateAcquired
+                    - costPerBird
             new:
-                fields: ['name', 'type', 'dateAcquired', 'numberOfMales', 'numberOfFemales', 'costPerBird']
+                fields: 
+                    - 'name'
+                    - 'type'
+                    - 'dateAcquired'
+                    - 'numberOfMales'
+                    - 'numberOfFemales'
+                    - 'costPerBird'
+                    - 'supplier'
         Type:
             class: 'App\Entity\Type'
         Expense:
@@ -22,3 +34,5 @@ easy_admin:
             class: 'App\Entity\Income'
         Category:
             class: 'App\Entity\Category'
+            new:
+                fields: ['name']

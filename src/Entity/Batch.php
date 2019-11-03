@@ -46,6 +46,11 @@ class Batch
      */
     private $type;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $supplier;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -119,6 +124,18 @@ class Batch
     public function setType(?Type $type): self
     {
         $this->type = $type;
+
+        return $this;
+    }
+
+    public function getSupplier(): ?string
+    {
+        return $this->supplier;
+    }
+
+    public function setSupplier(?string $supplier): self
+    {
+        $this->supplier = $supplier;
 
         return $this;
     }
