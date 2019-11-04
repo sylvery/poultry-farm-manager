@@ -9,7 +9,10 @@ easy_admin:
                 fields:
                     - name
                     - dateAcquired
-                    - costPerBird
+                    - {label: 'Unit Cost', property: costPerBird}
+                    - {label: 'Ducks', property: totalDucks}
+                    - {label: 'Total Cost', property: totalAcquireCost}
+                actions: ['edit','show']
             new:
                 fields: 
                     - 'name'

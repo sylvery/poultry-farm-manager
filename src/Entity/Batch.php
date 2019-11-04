@@ -116,6 +116,16 @@ class Batch
         return $this;
     }
 
+    public function getTotalDucks(): ?int
+    {
+        return $this->getNumberOfFemales() + $this->getNumberOfMales();
+    }
+
+    public function getTotalAcquireCost(): ?float
+    {
+        return ($this->getNumberOfFemales() + $this->getNumberOfMales()) * $this->getCostPerBird();
+    }
+
     public function getType(): ?Type
     {
         return $this->type;
