@@ -1,6 +1,13 @@
 easy_admin:
     design:
         brand_color: gold
+        menu:
+            - { label: 'Home', route: 'home_index'}
+            - 'Batch'
+            - 'Type'
+            - 'Expense'
+            - 'Income'
+            - 'Category'
     site_name: Pato
     entities:
         Batch:

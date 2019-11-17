@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Welcome!{% endblock %}
+
+{% block body %}
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <div class="list-group">
+            {% for batch in batches %}
+                <a href="{{path('easyadmin',{entity: 'Batch', id: batch.id, action: 'edit' })}}" class="list-group-item list-group-item-action">
+                <span class="h5">{{batch.name}} - {{batch.numberOfMales + batch.numberOfFemales}}</span>
+                </a>
+            {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
