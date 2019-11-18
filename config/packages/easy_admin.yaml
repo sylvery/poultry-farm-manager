@@ -8,7 +8,7 @@ easy_admin:
             - 'Expense'
             - 'Income'
             - 'Category'
-    site_name: Pato
+    site_name: Farm Back End
     entities:
         Batch:
             class: 'App\Entity\Batch'
@@ -24,7 +24,7 @@ easy_admin:
                 fields: 
                     - 'name'
                     - 'type'
-                    - 'dateAcquired'
+                    - {property: 'dateAcquired', type: 'date'}
                     - 'numberOfMales'
                     - 'numberOfFemales'
                     - 'costPerBird'
