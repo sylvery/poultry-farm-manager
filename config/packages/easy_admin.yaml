@@ -4,9 +4,7 @@ easy_admin:
         menu:
             - { label: 'Home', route: 'home_index'}
             - 'Batch'
-            - 'Type'
-            - 'Expense'
-            - 'Income'
+            - {label: 'Account', children: ['Expense', 'Income', 'Type']}
             - 'Category'
     site_name: Farm Back End
     entities:
@@ -19,11 +17,10 @@ easy_admin:
                     - {label: 'Unit Cost', property: costPerBird}
                     - {label: 'Ducks', property: totalDucks}
                     - {label: 'Total Cost', property: totalAcquireCost}
-                actions: ['edit','show']
             new:
                 fields: 
                     - 'name'
-                    - 'type'
+                    - 'category'
                     - {property: 'dateAcquired', type: 'date'}
                     - 'numberOfMales'
                     - 'numberOfFemales'
@@ -31,15 +28,24 @@ easy_admin:
                     - 'supplier'
         Type:
             class: 'App\Entity\Type'
+            form:
+                title: 'Add Expense Type'
+                fields: [name]
+            edit:
+                title: 'Edit Expense Type'
         Expense:
             class: 'App\Entity\Expense'
-            new:
+            form:
+                title: 'Add New Expense'
                 fields:
                     - {name: date, type: date, property: date}
                     - description
                     - amount
                     - type
                     - category
+                    - batch
+            edit:
+                title: 'Update Expense'
         Income:
             class: 'App\Entity\Income'
         Category:

@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Batch{% endblock %}
+
+{% block body %}
+<div class="container">
+    <div class="row py-3 mb-2">
+        <div class="col-sm-6">
+            <h1 class="mb-2">Batch {{batch.name}}</h1>
+            <div class="btn-group mb-2">
+                <a class="btn btn-primary btn-sm" role="button" href="{{ path('batch_index') }}">Back to list</a>
+                <a class="btn btn-success btn-sm" role="button" href="{{ path('home_index') }}">Go back home</a>
+                <a class="btn btn-outline-secondary btn-sm" role="button" href="{{ path('easyadmin', {entity: 'Batch', action: 'edit', id: batch.id}) }}">Edit this batch</a>
+            </div>
+            <table class="table table-sm table-striped">
+                <tbody>
+                    <tr>
+                        <th>Date Acquired</th>
+                        <td>{{ batch.dateAcquired ? batch.dateAcquired|date('D j F Y') : '' }}</td>
+                    </tr>
+                    <tr>
+                        <th>Age</th>
+                        <td>{{ batch.age }} Days ( {{ (batch.age/7) | round(1, 'ceil') }} weeks)</td>
+                    </tr>
+                    <tr>
+                        <th>Supplier</th>
+                        <td>{{ batch.supplier }}</td>
+                    </tr>
+                    <tr>
+                        <th>Cost Per Bird</th>
+                        <td>K {{ batch.costPerBird }}</td>
+                    </tr>
+                    <tr>
+                        <th>Number Birds</th>
+                        <td>{{ batch.numberOfMales + batch.numberOfFemales }}</td>
+                    </tr>
+                    <tr class="bg-info text-dark">
+                        <th>Total Cost</th>
+                        <td class="text-light">K {{ ( batch.numberOfMales + batch.numberOfFemales ) * batch.costPerBird + batch.getTotalExpenses }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-sm-6">
+            <h1 class="display-4">Expenses <span class="text-white small bg-warning px-5 py-2 mx-3 rounded-pill">K {{batch.getTotalExpenses}}</span></h1>
+            <div class="btn-group">
+                <a class="btn btn-success btn-sm" role="button" href="{{path('easyadmin',{entity: 'Expense', action: 'new' })}}">Add</a>
+            </div>
+            <hr>
+            <div class="list-group">
+            {% for expense in batch.expenses %}
+                <a class="btn btn-sm mb-1 btn-outline-{% if expense.type.name == 'Feed' %}info{% else %}warning{% endif %}" role="button" href="{{path('easyadmin',{action: 'edit', entity: 'Expense', id: expense.id})}}" class="list-group-item list-group-item-action">{{expense.description ~ ' K' ~ expense.amount }} @{{ expense.date|date('D, j F Y')}}</a>
+            {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

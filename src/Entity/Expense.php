@@ -41,6 +41,11 @@ class Expense
      */
     private $category;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Batch", inversedBy="expenses")
+     */
+    private $batch;
+
     public function __toString()
     {
         return $this->getDescription();
@@ -107,6 +112,18 @@ class Expense
     public function setCategory(?Category $category): self
     {
         $this->category = $category;
+
+        return $this;
+    }
+
+    public function getBatch(): ?Batch
+    {
+        return $this->batch;
+    }
+
+    public function setBatch(?Batch $batch): self
+    {
+        $this->batch = $batch;
 
         return $this;
     }

@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Batch List{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="row py-3 mb-2">
+            <div class="col-sm-9">
+                <h1>Batch List</h1>
+                <div class="btn-group">
+                    <a class="btn btn-success btn-sm" role="button" href="{{ path('batch_new') }}">Create new</a>
+                    <a class="btn btn-outline-primary btn-sm" role="button" href="{{ path('easyadmin') }}">Admin</a>
+                </div>
+                <table class="table table-responsive table-sm">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Age</th>
+                            <th>Category</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for batch in batches %}
+                        <tr>
+                            <td>{{ batch.name }}</td>
+                            <td>{{ batch.age }} days ({{ (batch.age/7) | round(1, 'ceil')}} weeks)</td>
+                            <td>{{ batch.category.name }}</td>
+                            <td class="btn-group">
+                                <a class="btn btn-info btn-sm" role="button" href="{{ path('batch_show', {'id': batch.id}) }}">show</a>
+                                <a class="btn btn-warning btn-sm" role="button" href="{{ path('batch_edit', {'id': batch.id}) }}">edit</a>
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="8">no records found</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-sm-3">
+                <div class="list-group">
+            {% for batch in batches %}
+            {% for category in batch.category %}
+                    <a href="#" class="list-group-item list-group-item-action">{{category.name}}</a>
+            {% endfor %}
+            {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

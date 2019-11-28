@@ -33,10 +33,16 @@ class Category
      */
     private $income;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Batch", mappedBy="category")
+     */
+    private $batches;
+
     public function __construct()
     {
         $this->expenses = new ArrayCollection();
         $this->income = new ArrayCollection();
+        $this->batches = new ArrayCollection();
     }
 
     public function __toString()
@@ -117,6 +123,37 @@ class Category
             // set the owning side to null (unless already changed)
             if ($income->getCategory() === $this) {
                 $income->setCategory(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Batch[]
+     */
+    public function getBatches(): Collection
+    {
+        return $this->batches;
+    }
+
+    public function addBatch(Batch $batch): self
+    {
+        if (!$this->batches->contains($batch)) {
+            $this->batches[] = $batch;
+            $batch->setCategory($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBatch(Batch $batch): self
+    {
+        if ($this->batches->contains($batch)) {
+            $this->batches->removeElement($batch);
+            // set the owning side to null (unless already changed)
+            if ($batch->getCategory() === $this) {
+                $batch->setCategory(null);
             }
         }
 
