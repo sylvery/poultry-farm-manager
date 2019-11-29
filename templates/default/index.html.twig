@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Welcome!{% endblock %}
+
+{% block body %}
+<div class="container">
+    <div class="row py-3 mb-2">
+        <div class="col-sm-12">
+            <div class="card-columns">
+                {% for batch in batches %}
+                    <a href="{{path('batch_show',{ id: batch.id })}}" class="text-info">
+                    <div class="card p-2 m-1 bg-dark">
+                        <div class="card-body">
+                            <h3 class="card-title">{{batch.name}}</h3>
+                            <div class="card-text">
+                                <p class="h5">{{batch.numberOfMales + batch.numberOfFemales}} birds</p> 
+                                <p class="small text-light">{{batch.age ~ ' days (' ~ (batch.age/7)|round(1, 'ceil') ~ ' weeks)'}}</p>
+                            </div>
+                        </div>
+                    </div>
+                    </a>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

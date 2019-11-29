@@ -1,8 +1,54 @@
 easy_admin:
+    design:
+        brand_color: gold
+        menu:
+            - { label: 'Home', route: 'home_index'}
+            - 'Batch'
+            - {label: 'Account', children: ['Expense', 'Income', 'Type']}
+            - 'Category'
+    site_name: Farm Back End
     entities:
-        Transaction:
-            class: 'App\Entity\Transaction'
-        Customer:
-            class: 'App\Entity\Customer'
-        Appuser:
-            class: 'App\Entity\Appuser'
+        Batch:
+            class: 'App\Entity\Batch'
+            list:
+                fields:
+                    - name
+                    - dateAcquired
+                    - {label: 'Unit Cost', property: costPerBird}
+                    - {label: 'Ducks', property: totalDucks}
+                    - {label: 'Total Cost', property: totalAcquireCost}
+            new:
+                fields: 
+                    - 'name'
+                    - 'category'
+                    - {property: 'dateAcquired', type: 'date'}
+                    - 'numberOfMales'
+                    - 'numberOfFemales'
+                    - 'costPerBird'
+                    - 'supplier'
+        Type:
+            class: 'App\Entity\Type'
+            form:
+                title: 'Add Expense Type'
+                fields: [name]
+            edit:
+                title: 'Edit Expense Type'
+        Expense:
+            class: 'App\Entity\Expense'
+            form:
+                title: 'Add New Expense'
+                fields:
+                    - {name: date, type: date, property: date}
+                    - description
+                    - amount
+                    - type
+                    - category
+                    - batch
+            edit:
+                title: 'Update Expense'
+        Income:
+            class: 'App\Entity\Income'
+        Category:
+            class: 'App\Entity\Category'
+            new:
+                fields: ['name']
