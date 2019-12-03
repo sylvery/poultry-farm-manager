@@ -3,6 +3,10 @@ security:
     #     App\Entity\Appuser:
     #         algorithm: argon2i
 
+    encoders:
+        App\Entity\Appuser:
+            algorithm: auto
+
     # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
     # providers:
     #     # used to reload user from session & other features (e.g. switch_user)
@@ -16,6 +20,19 @@ security:
             security: false
         main:
             anonymous: true
+            guard:
+                authenticators:
+                    - App\Security\AppuserAuthenticator
+            logout:
+                path: app_logout
+                # where to redirect after logout
+                # target: app_any_route
+    providers:
+        # used to reload user from session & other features (e.g. switch_user)
+        app_user_provider:
+            entity:
+                class: App\Entity\Appuser
+                property: email
             # guard:
             #     authenticators:
             #         - App\Security\LoginAuthenticator
