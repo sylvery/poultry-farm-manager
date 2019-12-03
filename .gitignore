@@ -2,6 +2,4 @@ var/*
 tests/*
 var/*
 vendor/*
-.env*
-.env
 # src/Migrations/.gitignore
