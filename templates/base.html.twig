@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %}{% endblock %} | StoaKippa</title>
+        <title>{% block title %}{% endblock %} | Poultry Farm Management Tool</title>
         {% block stylesheets %}
             <script src="{{asset('js/jquery.min.js')}}"></script>
             {% include "stylesheets.html.twig" %}
@@ -44,10 +44,10 @@
             </div>
         {% endif %}
         </div>
-        <div id="main-content">
+        <div id="main-content" style="height: 85vh;">
             {% block body %}{% endblock %}
         </div>
-        <footer class="bg-dark py-5 text-center">
+        <footer class="bg-dark py-1 text-center">
             {% block footer %}
             {% endblock %}
             <div class="container">
