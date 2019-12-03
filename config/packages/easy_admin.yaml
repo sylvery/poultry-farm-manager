@@ -3,9 +3,10 @@ easy_admin:
         brand_color: gold
         menu:
             - { label: 'Home', route: 'home_index'}
-            - 'Batch'
             - {label: 'Account', children: ['Expense', 'Income', 'Type']}
+            - { entity: 'Batch', default: true }
             - 'Category'
+            - 'Appuser'
     site_name: Farm Back End
     entities:
         Batch:
@@ -48,6 +49,23 @@ easy_admin:
                 title: 'Update Expense'
         Income:
             class: 'App\Entity\Income'
+        Appuser:
+            title: User
+            class: 'App\Entity\Appuser'
+            controller: App\Controller\AppuserController
+            # app_user_provider:
+            #     export_path: '%kernel.project_dir/var/export/user'
+            #     password_encoding: { algorithm: 'bcrypt', cost: 12 }
+            form:
+                title: 'Add User'
+                fields: 
+                    - 'email'
+                    - { property: 'password', type: 'password' }
+                    - { property: 'roles', type: 'choice', type_options: { multiple: true, choices: { 'ROLE_ADMIN': 'ROLE_ADMIN','ROLE_USER': 'ROLE_USER'  } } }
+            list:
+                fields:
+                    - { property: email }
+                    - { property: password }
         Category:
             class: 'App\Entity\Category'
             new:
