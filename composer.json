@@ -1,6 +1,6 @@
 {
     "type": "project",
-    "name": "sylvery/FarmManagementToolkit",
+    "name": "sylvery/farm-management-toolkit",
     "description": "FMT is an online app platform that allows farm owners to manage their farm data, make projections and informed decisions to keep their farm running smoothly",
     "license": "proprietary",
     "require": {
@@ -12,7 +12,6 @@
         "symfony/apache-pack": "^1.0",
         "symfony/asset": "4.4.*",
         "symfony/console": "4.4.*",
-        "symfony/dotenv": "4.4.*",
         "symfony/expression-language": "4.4.*",
         "symfony/flex": "^1.1",
         "symfony/form": "4.4.*",
@@ -31,6 +30,7 @@
         "symfony/yaml": "4.4.*"
     },
     "require-dev": {
+        "symfony/dotenv": "4.4.*",
         "symfony/debug-pack": "*",
         "symfony/maker-bundle": "^1.0",
         "symfony/profiler-pack": "*",
