@@ -1,13 +1,22 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Welcome!{% endblock %}
+{% block title %}Welcome{% endblock %}
 
 {% block body %}
+{% if app.user %}
 <div class="container">
     <div class="row py-3 mb-2">
         <div class="col-sm-12">
+            <div class="btn-group">
+                <a class="btn btn-info" href="{{path('easyadmin',{entity: 'Farm', action: 'new'})}}" role="button">Add Farm</a>
+                <a class="btn btn-warning" href="{{path('easyadmin',{entity: 'Batch', action: 'new'})}}" role="button">Add Batch</a>
+            </div>
+        </div>
+        <div class="col-sm-12">
+            {% for farm in farms %}
+            <p class="h1 display-4">{{ farm.name }}</p>
             <div class="card-columns">
-                {% for batch in batches %}
+                {% for batch in farm.batches %}
                     <a href="{{path('batch_show',{ id: batch.id })}}" class="text-info">
                     <div class="card p-2 m-1 bg-dark">
                         <div class="card-body">
@@ -21,7 +30,9 @@
                     </a>
                 {% endfor %}
             </div>
+            {% endfor %}
         </div>
     </div>
 </div>
+{% endif %}
 {% endblock %}

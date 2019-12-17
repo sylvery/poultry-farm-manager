@@ -1,3 +1,7 @@
+#main-content {
+    min-height: 84vh;
+}
+
 @media (min-width:960px){
     .brf-2{
         border-right: 2px solid black;
@@ -6,3 +10,12 @@
         border-left: 2px solid black;
     }
 }
+
+.card-columns {
+    @media (min-width:960px) {
+      column-count: 4;
+    }
+    @media (min-width:1200px) {
+      column-count: 5;
+    }
+  }
