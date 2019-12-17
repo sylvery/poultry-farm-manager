@@ -45,6 +45,11 @@ class Appuser implements UserInterface
         $this->farms = new ArrayCollection();
     }
 
+    public function __toString()
+    {
+        return $this->getEmail();
+    }
+
     public function getId(): ?int
     {
         return $this->id;

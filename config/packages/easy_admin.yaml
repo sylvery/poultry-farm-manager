@@ -5,8 +5,9 @@ easy_admin:
             - { label: 'Home', route: 'home_index'}
             - {label: 'Account', children: ['Expense', 'Income', 'Type']}
             - { entity: 'Batch', default: true }
-            - 'Category'
-            - 'Appuser'
+            - Category
+            - Appuser
+            - Farm
     site_name: Farm Back End
     entities:
         Batch:
@@ -49,6 +50,8 @@ easy_admin:
                 title: 'Update Expense'
         Income:
             class: 'App\Entity\Income'
+        Farm:
+            class: 'App\Entity\Farm'
         Appuser:
             title: User
             class: 'App\Entity\Appuser'

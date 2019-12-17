@@ -6,7 +6,7 @@
 <div class="container">
     <div class="row py-3 mb-2">
         <div class="col-sm-6">
-            <h1 class="mb-2">Batch {{batch.name}}</h1>
+            <h1 class="mb-2">{{batch.name}}</h1>
             <div class="btn-group mb-2">
                 <a class="btn btn-primary btn-sm" role="button" href="{{ path('batch_index') }}">Back to list</a>
                 <a class="btn btn-success btn-sm" role="button" href="{{ path('home_index') }}">Go back home</a>
@@ -32,16 +32,22 @@
                     </tr>
                     <tr>
                         <th>Number Birds</th>
-                        <td>{{ batch.numberOfMales + batch.numberOfFemales }}</td>
+                        {% set totalChickens = batch.numberOfMales + batch.numberOfFemales %}
+                        <td>{{ totalChickens }}</td>
+                    </tr>
+                    <tr>
+                        <th>Cost to Acquire</th>
+                        <td>K {{ totalChickens * batch.costPerBird }}</td>
                     </tr>
                     <tr class="h2 bg-info text-dark">
-                        <th>Total Cost</th>
-                        <td class="text-light">K {{ ( batch.numberOfMales + batch.numberOfFemales ) * batch.costPerBird + batch.getTotalExpenses }}</td>
+                        <th>Accumulated Costs</th>
+                        {% set accumulatedCosts = totalChickens * batch.costPerBird + batch.getTotalExpenses %}
+                        <td class="text-light">K {{ accumulatedCosts }}</td>
                     </tr>
                 </tbody>
             </table>
         </div>
-        <div class="col-sm-6">
+        <div class="col-sm-6 mb-3">
             <h1 class="display-4">Expenses <span class="text-white small bg-warning px-5 py-2 mx-3 rounded-pill">K {{batch.getTotalExpenses}}</span></h1>
             <div class="btn-group">
                 <a class="btn btn-success btn-sm" role="button" href="{{path('easyadmin',{entity: 'Expense', action: 'new' })}}">Add</a>
@@ -52,6 +58,62 @@
                 <a class="btn btn-sm mb-1 btn-outline-{% if expense.type.name == 'Feed' %}info{% else %}warning{% endif %}" role="button" href="{{path('easyadmin',{action: 'edit', entity: 'Expense', id: expense.id})}}" class="list-group-item list-group-item-action">{{expense.description ~ ' K' ~ expense.amount }} @{{ expense.date|date('D, j F Y')}}</a>
             {% endfor %}
             </div>
+        </div>
+        <div class="col-12 bg-dark text-light p-4 mb-3">
+            <span>We've taken care of calculating the profits for you and we've predicted the best selling price for you such that you should make ample profit and get rewarded for the hard work you've put in. Below are suggested selling prices based on profit margins and added markups. Please be responsible when making a decision on your final pricing and always keep in mind that the paying customer is human and has other needs as well as food consumption. Put yourself in his/her shoe when deciding upon the price.</span>
+        </div>
+        <div class="col-12">
+            <table class="table table-sm table-striped">
+                <thead>
+                    <tr>
+                        <th>Mark-up</th>
+                        <th>Selling Price / Chicken</th>
+                        <th>Profit / Chicken Sold</th>
+                        <th>Total Profit From Sales</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td scope="row">0</td>
+                        {% set basePrice = accumulatedCosts/totalChickens %}
+                        <td>K {{ basePrice|round(2,'ceil')}}</td>
+                        <td>K 0.00</td>
+                        <td>K 0.00</td>
+                    </tr>
+                    <tr>
+                        <td scope="row">25 %</td>
+                        {% set markup25 = (basePrice*0.25 + basePrice) %}
+                        <td>K {{ markup25 | round(2, 'ceil') }}</td>
+                        {% set profit25 = markup25 - basePrice %}
+                        <td>K {{ profit25|round(2,'ceil') }}</td>
+                        <td>K {{ (profit25 * totalChickens)|round(2,'ceil') }}</td>
+                    </tr>
+                    <tr>
+                        <td scope="row">50 %</td>
+                        {% set markup50 = (basePrice*0.50 + basePrice) %}
+                        <td>K {{ markup50 | round(2, 'ceil') }}</td>
+                        {% set profit50 = markup50 - basePrice %}
+                        <td>K {{ profit50|round(2,'ceil') }}</td>
+                        <td>K {{ (profit50 * totalChickens)|round(2,'ceil') }}</td>
+                    </tr>
+                    <tr>
+                        <td scope="row">75 %</td>
+                        {% set markup75 = (basePrice*0.75 + basePrice) %}
+                        <td>K {{ markup75 | round(2, 'ceil') }}</td>
+                        {% set profit75 = markup75 - basePrice %}
+                        <td>K {{ profit75|round(2,'ceil') }}</td>
+                        <td>K {{ (profit75 * totalChickens)|round(2,'ceil') }}</td>
+                    </tr>
+                    <tr>
+                        <td scope="row">100 %</td>
+                        {% set markup100 = (basePrice*1 + basePrice) %}
+                        <td>K {{ markup100 | round(2, 'ceil') }}</td>
+                        {% set profit100 = markup100 - basePrice %}
+                        <td>K {{ profit100|round(2,'ceil') }}</td>
+                        <td>K {{ (profit100 * totalChickens)|round(2,'ceil') }}</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 </div>
