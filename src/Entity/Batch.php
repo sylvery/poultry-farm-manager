@@ -63,6 +63,11 @@ class Batch
      */
     private $category;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Farm", inversedBy="batches")
+     */
+    private $farm;
+
     public function __construct()
     {
         $this->expenses = new ArrayCollection();
@@ -245,6 +250,18 @@ class Batch
     public function setCategory(?Category $category): self
     {
         $this->category = $category;
+
+        return $this;
+    }
+
+    public function getFarm(): ?Farm
+    {
+        return $this->farm;
+    }
+
+    public function setFarm(?Farm $farm): self
+    {
+        $this->farm = $farm;
 
         return $this;
     }

@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -32,6 +34,16 @@ class Appuser implements UserInterface
      * @ORM\Column(type="string")
      */
     private $password;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Farm", mappedBy="owner")
+     */
+    private $farms;
+
+    public function __construct()
+    {
+        $this->farms = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -109,5 +121,36 @@ class Appuser implements UserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
+    }
+
+    /**
+     * @return Collection|Farm[]
+     */
+    public function getFarms(): Collection
+    {
+        return $this->farms;
+    }
+
+    public function addFarm(Farm $farm): self
+    {
+        if (!$this->farms->contains($farm)) {
+            $this->farms[] = $farm;
+            $farm->setOwner($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFarm(Farm $farm): self
+    {
+        if ($this->farms->contains($farm)) {
+            $this->farms->removeElement($farm);
+            // set the owning side to null (unless already changed)
+            if ($farm->getOwner() === $this) {
+                $farm->setOwner(null);
+            }
+        }
+
+        return $this;
     }
 }
