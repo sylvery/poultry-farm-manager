@@ -15,15 +15,25 @@
         <div class="col-sm-12">
             {% for farm in farms %}
             <p class="h1 display-4">{{ farm.name }}</p>
+            <p class="text-secondary">{{ farm.location }}</p>
             <div class="card-columns">
                 {% for batch in farm.batches %}
                     <a href="{{path('batch_show',{ id: batch.id })}}" class="text-info">
-                    <div class="card p-2 m-1 bg-dark">
+                    <div class="card p-2 m-1 {{ batch.dateSoldOut ? 'border-danger text-danger' : batch.onSale ? 'border-success text-success' : 'bg-dark'}}">
+                        <div class="card-header">
+                            <span class="lead card-title">{{batch.name}}</span>
+                            {% if batch.dateSoldOut %}
+                                <span class="badge badge-pill badge-danger float-right">sold out</span>
+                            {% elseif batch.age > 35 or batch.onSale %}
+                                <span class="badge badge-pill badge-success float-right">on sale</span>
+                            {% else %}
+                                <span class="badge badge-pill badge-warning float-right">sale pending</span>
+                            {% endif %}
+                        </div>
                         <div class="card-body">
-                            <h3 class="card-title">{{batch.name}}</h3>
                             <div class="card-text">
                                 <p class="h5">{{batch.numberOfMales + batch.numberOfFemales}} birds</p> 
-                                <p class="small text-light">{{batch.age ~ ' days (' ~ (batch.age/7)|round(1, 'ceil') ~ ' weeks)'}}</p>
+                                <p class="small">{{(batch.age/7)|round(1, 'ceil') ~ ' weeks ' ~ batch.category}}</p>
                             </div>
                         </div>
                     </div>

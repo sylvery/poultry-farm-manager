@@ -3,7 +3,7 @@
 {% block title %}Batch{% endblock %}
 
 {% block body %}
-<div class="container">
+<div class="container mb-5">
     <div class="row py-3 mb-2">
         <div class="col-sm-6">
             <h1 class="mb-2">{{batch.name}}</h1>
@@ -33,7 +33,7 @@
                     <tr>
                         <th>Number Birds</th>
                         {% set totalChickens = batch.numberOfMales + batch.numberOfFemales %}
-                        <td>{{ totalChickens }}</td>
+                        <td id="totalChickens">{{ totalChickens }}</td>
                     </tr>
                     <tr>
                         <th>Cost to Acquire</th>
@@ -42,7 +42,7 @@
                     <tr class="h2 bg-info text-dark">
                         <th>Accumulated Costs</th>
                         {% set accumulatedCosts = totalChickens * batch.costPerBird + batch.getTotalExpenses %}
-                        <td class="text-light">K {{ accumulatedCosts }}</td>
+                        <td class="text-light">K <span id="accumulatedCosts">{{ accumulatedCosts }}</span></td>
                     </tr>
                 </tbody>
             </table>
@@ -55,66 +55,110 @@
             <hr>
             <div class="list-group">
             {% for expense in batch.expenses %}
-                <a class="btn btn-sm mb-1 btn-outline-{% if expense.type.name == 'Feed' %}info{% else %}warning{% endif %}" role="button" href="{{path('easyadmin',{action: 'edit', entity: 'Expense', id: expense.id})}}" class="list-group-item list-group-item-action">{{expense.description ~ ' K' ~ expense.amount }} @{{ expense.date|date('D, j F Y')}}</a>
+                <a class="btn btn-sm mb-1 btn-outline-{% if expense.category.name == 'Feed' %}info{% else %}warning{% endif %}" role="button" href="{{path('easyadmin',{action: 'edit', entity: 'Expense', id: expense.id})}}" class="list-group-item list-group-item-action">{{expense.description ~ ' K' ~ expense.amount }} @{{ expense.date|date('D, j F Y')}}</a>
             {% endfor %}
             </div>
         </div>
-        <div class="col-12 bg-dark text-light p-4 mb-3">
-            <span>We've taken care of calculating the profits for you and we've predicted the best selling price for you such that you should make ample profit and get rewarded for the hard work you've put in. Below are suggested selling prices based on profit margins and added markups. Please be responsible when making a decision on your final pricing and always keep in mind that the paying customer is human and has other needs as well as food consumption. Put yourself in his/her shoe when deciding upon the price.</span>
-        </div>
-        <div class="col-12">
-            <table class="table table-sm table-striped">
-                <thead>
-                    <tr>
-                        <th>Mark-up</th>
-                        <th>Selling Price / Chicken</th>
-                        <th>Profit / Chicken Sold</th>
-                        <th>Total Profit From Sales</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td scope="row">0</td>
-                        {% set basePrice = accumulatedCosts/totalChickens %}
-                        <td>K {{ basePrice|round(2,'ceil')}}</td>
-                        <td>K 0.00</td>
-                        <td>K 0.00</td>
-                    </tr>
-                    <tr>
-                        <td scope="row">25 %</td>
-                        {% set markup25 = (basePrice*0.25 + basePrice) %}
-                        <td>K {{ markup25 | round(2, 'ceil') }}</td>
-                        {% set profit25 = markup25 - basePrice %}
-                        <td>K {{ profit25|round(2,'ceil') }}</td>
-                        <td>K {{ (profit25 * totalChickens)|round(2,'ceil') }}</td>
-                    </tr>
-                    <tr>
-                        <td scope="row">50 %</td>
-                        {% set markup50 = (basePrice*0.50 + basePrice) %}
-                        <td>K {{ markup50 | round(2, 'ceil') }}</td>
-                        {% set profit50 = markup50 - basePrice %}
-                        <td>K {{ profit50|round(2,'ceil') }}</td>
-                        <td>K {{ (profit50 * totalChickens)|round(2,'ceil') }}</td>
-                    </tr>
-                    <tr>
-                        <td scope="row">75 %</td>
-                        {% set markup75 = (basePrice*0.75 + basePrice) %}
-                        <td>K {{ markup75 | round(2, 'ceil') }}</td>
-                        {% set profit75 = markup75 - basePrice %}
-                        <td>K {{ profit75|round(2,'ceil') }}</td>
-                        <td>K {{ (profit75 * totalChickens)|round(2,'ceil') }}</td>
-                    </tr>
-                    <tr>
-                        <td scope="row">100 %</td>
-                        {% set markup100 = (basePrice*1 + basePrice) %}
-                        <td>K {{ markup100 | round(2, 'ceil') }}</td>
-                        {% set profit100 = markup100 - basePrice %}
-                        <td>K {{ profit100|round(2,'ceil') }}</td>
-                        <td>K {{ (profit100 * totalChickens)|round(2,'ceil') }}</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
     </div>
+    <section class="bg-dark text-light row py-3 mb-2">
+        <div class="col-md-4 ">
+            <span class="small">Please use this markup calculator to help you work out a fair selling price for your chickens to make your desired profit. Be responsible when deciding on the final selling price keeping in mind that the paying customer is human and has other needs as well as food consumption. If you were on the other end, how much would you like to pay for a chicken?</span>
+        </div>
+        <div class="col-auto">
+            <div class="form-group">
+                <label for="markupInterest">Markup Interest (%)</label>
+                <input type="number" min="0" max="1000" class="form-control" name="markupInterest" id="markupInterest" aria-describedby="markupInterestHelpId">
+                <small id="markupInterestHelpId" class="form-text text-muted">Enter any number greater than 0</small>
+            </div>
+        </div>
+        <div class="col-auto">
+            <p id="markupCalculatedProfit" class="h1 display-1 text-warning">0</p>
+            <p class="text-secondary">Total Income (PGK)</p>
+        </div>
+        <div class="col-auto">
+            <p>
+                <span class="text-muted small">Selling Price: </span><sup>K</sup>
+                <span id="markupCalculatedChickenPrice">0</span>
+            </p>
+            <p>
+                <span class="text-muted small">Total Spent: </span><sup>K</sup>
+                <span id="totalExpenses">{{ accumulatedCosts }}</span>
+            </p>
+            <p>
+                <span class="text-muted small">Net Profit: </span><sup>K</sup>
+                <span id="netProfit">0</span>
+            </p>
+        </div>
+    {#
+            <div class="col-12">
+                <table class="table table-sm table-striped">
+                    <thead>
+                        <tr>
+                            <th>Mark-up</th>
+                            <th>Selling Price / Chicken</th>
+                            <th>Profit / Chicken Sold</th>
+                            <th>Total Profit From Sales</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td scope="row">0</td>
+                            {% set basePrice = accumulatedCosts/totalChickens %}
+                            <td>K {{ basePrice|round(2,'ceil')}}</td>
+                            <td>K 0.00</td>
+                            <td>K 0.00</td>
+                        </tr>
+                        <tr>
+                            <td scope="row">25 %</td>
+                            {% set markup25 = (basePrice*0.25 + basePrice) %}
+                            <td>K {{ markup25 | round(2, 'ceil') }}</td>
+                            {% set profit25 = markup25 - basePrice %}
+                            <td>K {{ profit25|round(2,'ceil') }}</td>
+                            <td>K {{ (profit25 * totalChickens)|round(2,'ceil') }}</td>
+                        </tr>
+                        <tr>
+                            <td scope="row">50 %</td>
+                            {% set markup50 = (basePrice*0.50 + basePrice) %}
+                            <td>K {{ markup50 | round(2, 'ceil') }}</td>
+                            {% set profit50 = markup50 - basePrice %}
+                            <td>K {{ profit50|round(2,'ceil') }}</td>
+                            <td>K {{ (profit50 * totalChickens)|round(2,'ceil') }}</td>
+                        </tr>
+                        <tr>
+                            <td scope="row">75 %</td>
+                            {% set markup75 = (basePrice*0.75 + basePrice) %}
+                            <td>K {{ markup75 | round(2, 'ceil') }}</td>
+                            {% set profit75 = markup75 - basePrice %}
+                            <td>K {{ profit75|round(2,'ceil') }}</td>
+                            <td>K {{ (profit75 * totalChickens)|round(2,'ceil') }}</td>
+                        </tr>
+                        <tr>
+                            <td scope="row">100 %</td>
+                            {% set markup100 = (basePrice*1 + basePrice) %}
+                            <td>K {{ markup100 | round(2, 'ceil') }}</td>
+                            {% set profit100 = markup100 - basePrice %}
+                            <td>K {{ profit100|round(2,'ceil') }}</td>
+                            <td>K {{ (profit100 * totalChickens)|round(2,'ceil') }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+    #}
+    </section>
 </div>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $('#markupInterest').on('keyup',(e)=>{
+            $mi = parseFloat($('#markupInterest')[0].value);
+            $costs = parseFloat($('#accumulatedCosts')[0].innerText);
+            $totalChickens = parseFloat($('#totalChickens')[0].innerText);
+            $markup = $costs * ($mi/100);
+            $priceFinal = $costs + $markup;
+            $('#markupCalculatedProfit')[0].innerText = Math.floor($priceFinal);
+            $('#netProfit')[0].innerText = Math.floor($markup);
+            $('#markupCalculatedChickenPrice')[0].innerText = Math.floor($priceFinal/$totalChickens);
+        });
+    </script>
 {% endblock %}

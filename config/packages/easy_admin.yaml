@@ -3,7 +3,7 @@ easy_admin:
         brand_color: gold
         menu:
             - { label: 'Home', route: 'home_index'}
-            - {label: 'Account', children: ['Expense', 'Income', 'Type']}
+            - {label: 'Account', children: ['Expense', 'Income']}
             - { entity: 'Batch', default: true }
             - Category
             - Appuser
@@ -28,13 +28,7 @@ easy_admin:
                     - 'numberOfFemales'
                     - 'costPerBird'
                     - 'supplier'
-        Type:
-            class: 'App\Entity\Type'
-            form:
-                title: 'Add Expense Type'
-                fields: [name]
-            edit:
-                title: 'Edit Expense Type'
+                    - 'farm'
         Expense:
             class: 'App\Entity\Expense'
             form:
@@ -43,7 +37,6 @@ easy_admin:
                     - {name: date, type: date, property: date}
                     - description
                     - amount
-                    - type
                     - category
                     - batch
             edit:

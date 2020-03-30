@@ -19,22 +19,19 @@ class BatchRepository extends ServiceEntityRepository
         parent::__construct($registry, Batch::class);
     }
 
-    // /**
-    //  * @return Batch[] Returns an array of Batch objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    /**
+     * @return Batch[] Returns an array of Batch objects
+     */
+    public function findAllOnSale()
     {
         return $this->createQueryBuilder('b')
-            ->andWhere('b.exampleField = :val')
-            ->setParameter('val', $value)
+            ->andWhere('b.onSale = true')
             ->orderBy('b.id', 'ASC')
             ->setMaxResults(10)
             ->getQuery()
             ->getResult()
         ;
     }
-    */
 
     /*
     public function findOneBySomeField($value): ?Batch

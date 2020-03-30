@@ -32,11 +32,6 @@ class Expense
     private $amount;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Type", inversedBy="expenses")
-     */
-    private $type;
-
-    /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Category", inversedBy="expenses")
      */
     private $category;
@@ -88,18 +83,6 @@ class Expense
     public function setAmount(float $amount): self
     {
         $this->amount = $amount;
-
-        return $this;
-    }
-
-    public function getType(): ?Type
-    {
-        return $this->type;
-    }
-
-    public function setType(?Type $type): self
-    {
-        $this->type = $type;
 
         return $this;
     }

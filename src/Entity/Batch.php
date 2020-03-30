@@ -68,6 +68,16 @@ class Batch
      */
     private $farm;
 
+    /**
+     * @ORM\Column(type="date", nullable=true)
+     */
+    private $dateSoldOut;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $onSale;
+
     public function __construct()
     {
         $this->expenses = new ArrayCollection();
@@ -168,6 +178,9 @@ class Batch
 
     public function getAge()
     {
+        if ($this->getDateSoldOut()) {
+            return date_diff($this->getDateAcquired(), $this->getDateSoldOut(), true)->format('%R%a');
+        }
         return date_diff($this->getDateAcquired(),new \DateTime(), true)->format('%R%a');
     }
 
@@ -262,6 +275,30 @@ class Batch
     public function setFarm(?Farm $farm): self
     {
         $this->farm = $farm;
+
+        return $this;
+    }
+
+    public function getDateSoldOut(): ?\DateTimeInterface
+    {
+        return $this->dateSoldOut;
+    }
+
+    public function setDateSoldOut(?\DateTimeInterface $dateSoldOut): self
+    {
+        $this->dateSoldOut = $dateSoldOut;
+
+        return $this;
+    }
+
+    public function getOnSale(): ?bool
+    {
+        return $this->onSale;
+    }
+
+    public function setOnSale(?bool $onSale): self
+    {
+        $this->onSale = $onSale;
 
         return $this;
     }
