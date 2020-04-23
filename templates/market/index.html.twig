@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello MarketController!{% endblock %}
+{% block title %}Market {{ parent() }}{% endblock %}
 
 {% block body %}
 <section id="itemsOnSale" class="container">
@@ -9,12 +9,12 @@
             {% for batch in batches %}
             <div class="card border-success">
                 <div class="card-header h3">
-                    <span class="card-title">{{ batch.name }}</span>
+                    <span class="card-title">{{ batch.farm.name }}</span>
                     <div class="float-right"><span class="badge badge-info p2"><sup>K</sup>40</span></div>
                 </div>
                 <div class="card-body">
-                    <p class="card-text">Delicious fresh chickens from {{ batch.farm }}. You can get it live or cleaned for an extra K5 payment.</p>
-                    <a href="{{path('batch_show', {id: batch.id})}}" class="btn btn-info">Batch details</a>
+                    <p class="card-text">Delicious fresh chickens. You can get it live or cleaned for an extra K5 payment. <span class="text-muted small">Sample Text for sales description.</span></p>
+                    <a href="{{path('market_batch', {id: batch.id})}}" class="btn btn-info">Batch details</a>
                     <a href="#" class="btn btn-success">Place order</a>
                 </div>
                 <div class="card-footer">
