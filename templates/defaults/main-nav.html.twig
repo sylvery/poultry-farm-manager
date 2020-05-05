@@ -29,8 +29,19 @@
             </nav>
         </nav>
     {% else %}
-        <div class="py-3 text-center text-warning">
-            <a class="text-warning" href="{{path('home_index')}}">{{ appName }}</a>
-        </div>
+        <nav class="navbar navbar-expand-sm container">
+            <a class="navbar-brand" href="{{path('home_index')}}">PouFa</a>
+            <button class="navbar-toggler d-lg-none" type="button" data-toggle="collapse" data-target="#collapsibleMainNav" aria-controls="collapsibleMainNav"
+                aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="collapsibleMainNav">
+                <div class="navbar-nav mr-auto mt-2 mt-lg-0">
+                    <nav class="nav justify-content-center">
+                        <a class="nav-link" href="{{path('app_login')}}">Login</a>
+                    </nav>
+                </div>
+            </div>
+        </nav>
     {% endif %}
 </div>

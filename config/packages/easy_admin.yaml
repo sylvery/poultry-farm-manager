@@ -45,6 +45,24 @@ easy_admin:
             class: 'App\Entity\Income'
         Farm:
             class: 'App\Entity\Farm'
+            controller: App\Controller\FarmEAController
+            form:
+                title: 'New Farm'
+                fields:
+                    - { property: name }
+                    - { property: location }
+            edit:
+                title: 'Update Farm'
+                fields:
+                    - { property: name }
+                    - { property: location }
+                    - { property: owner }
+            list:
+                title: 'Your Farms'
+                fields:
+                    - { property: name }
+                    - { property: location }
+                    - { property: batch.count }
         Appuser:
             title: User
             class: 'App\Entity\Appuser'

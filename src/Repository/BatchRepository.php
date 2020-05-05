@@ -27,7 +27,6 @@ class BatchRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('b')
             ->andWhere('b.onSale = true')
             ->orderBy('b.id', 'ASC')
-            ->setMaxResults(10)
             ->getQuery()
             ->getResult()
         ;
