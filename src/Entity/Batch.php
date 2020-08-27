@@ -78,6 +78,11 @@ class Batch
      */
     private $onSale;
 
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $sellingprice;
+
     public function __construct()
     {
         $this->expenses = new ArrayCollection();
@@ -299,6 +304,18 @@ class Batch
     public function setOnSale(?bool $onSale): self
     {
         $this->onSale = $onSale;
+
+        return $this;
+    }
+
+    public function getSellingprice(): ?int
+    {
+        return $this->sellingprice;
+    }
+
+    public function setSellingprice(?int $sellingprice): self
+    {
+        $this->sellingprice = $sellingprice;
 
         return $this;
     }
