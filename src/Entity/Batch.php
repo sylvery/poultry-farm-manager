@@ -36,12 +36,7 @@ class Batch
     /**
      * @ORM\Column(type="integer")
      */
-    private $numberOfMales;
-
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $numberOfFemales;
+    private $numberOfSpecimens;
     
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -77,6 +72,11 @@ class Batch
      * @ORM\Column(type="boolean", nullable=true)
      */
     private $onSale;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $sellingprice;
 
     public function __construct()
     {
@@ -130,38 +130,14 @@ class Batch
         return $this;
     }
 
-    public function getNumberOfMales(): ?int
-    {
-        return $this->numberOfMales;
-    }
-
-    public function setNumberOfMales(int $numberOfMales): self
-    {
-        $this->numberOfMales = $numberOfMales;
-
-        return $this;
-    }
-
-    public function getNumberOfFemales(): ?int
-    {
-        return $this->numberOfFemales;
-    }
-
-    public function setNumberOfFemales(int $numberOfFemales): self
-    {
-        $this->numberOfFemales = $numberOfFemales;
-
-        return $this;
-    }
-
     public function getTotalDucks(): ?int
     {
-        return $this->getNumberOfFemales() + $this->getNumberOfMales();
+        return $this->getNumberOfSpecimens();
     }
 
     public function getTotalAcquireCost(): ?float
     {
-        return ($this->getNumberOfFemales() + $this->getNumberOfMales()) * $this->getCostPerBird();
+        return ($this->getNumberOfSpecimens()) * $this->getCostPerBird();
     }
 
     public function getSupplier(): ?string
@@ -299,6 +275,30 @@ class Batch
     public function setOnSale(?bool $onSale): self
     {
         $this->onSale = $onSale;
+
+        return $this;
+    }
+
+    public function getSellingprice(): ?int
+    {
+        return $this->sellingprice;
+    }
+
+    public function setSellingprice(?int $sellingprice): self
+    {
+        $this->sellingprice = $sellingprice;
+
+        return $this;
+    }
+
+    public function getNumberOfSpecimens(): ?int
+    {
+        return $this->numberOfSpecimens;
+    }
+
+    public function setNumberOfSpecimens(int $numberOfSpecimens): self
+    {
+        $this->numberOfSpecimens = $numberOfSpecimens;
 
         return $this;
     }

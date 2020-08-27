@@ -57,6 +57,6 @@ security:
     access_control:
     #     - { path: ^/customer, roles: [ROLE_VIEW_CUSTOMER, ROLE_ADMINISTRATOR, ROLE_MANAGE_CUSTOMER] }
     #     # - { path: ^/manage, roles: ROLE_OWNER }
-        - { path: ^/market, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        # - { path: ^/market, roles: IS_AUTHENTICATED_ANONYMOUSLY }
     #     # - { path: ^/admin, roles: ROLE_EMPLOYEE }
     #     - { path: ^/transaction, roles: IS_AUTHENTICATED_FULLY }

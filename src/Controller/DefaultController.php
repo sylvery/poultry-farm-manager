@@ -14,14 +14,14 @@ class DefaultController extends AbstractController
     public function index(FarmRepository $farmRepo)
     {
         if ($this->getUser()) {
-            $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+            // $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
             return $this->render('default/index.html.twig', [
                 'farms' => $farmRepo->findBy([
                     'owner' => $this->getUser(),
                 ]),
             ]);
         } else {
-            return $this->render('market/index.html.twig');
+            return $this->redirectToRoute('market_index');
         }
     }
 }

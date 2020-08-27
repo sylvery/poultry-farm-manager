@@ -8,6 +8,7 @@ easy_admin:
             - Category
             - Appuser
             - Farm
+            - { label: 'Market', route: 'market_index'}
     site_name: Farm Back End
     entities:
         Batch:
@@ -19,7 +20,7 @@ easy_admin:
                     - {label: 'Unit Cost', property: costPerBird}
                     - {label: 'Ducks', property: totalDucks}
                     - {label: 'Total Cost', property: totalAcquireCost}
-            new:
+            form:
                 fields: 
                     - 'name'
                     - 'category'
@@ -29,6 +30,9 @@ easy_admin:
                     - 'costPerBird'
                     - 'supplier'
                     - 'farm'
+                    - 'sellingprice'
+            edit:
+                title: update batch details
         Expense:
             class: 'App\Entity\Expense'
             form:
