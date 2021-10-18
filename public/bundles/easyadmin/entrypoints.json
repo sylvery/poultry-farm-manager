@@ -9,14 +9,6 @@
         "./app.js"
       ]
     },
-    "app-custom-rtl": {
-      "css": [
-        "./app-custom-rtl.css"
-      ],
-      "js": [
-        "./app-custom-rtl.js"
-      ]
-    },
     "form-type-code-editor": {
       "css": [
         "./form-type-code-editor.css",
@@ -33,6 +25,21 @@
       ],
       "js": [
         "./form-type-text-editor.js"
+      ]
+    },
+    "form-type-collection": {
+      "js": [
+        "./form-type-collection.js"
+      ]
+    },
+    "form-type-slug": {
+      "js": [
+        "./form-type-slug.js"
+      ]
+    },
+    "form-type-textarea": {
+      "js": [
+        "./form-type-textarea.js"
       ]
     }
   }
