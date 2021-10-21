@@ -1,46 +1,38 @@
 <div class="navbar-dark bg-dark">
     {% if app.user %}
-        <nav class="navbar navbar-expand-sm container">
-            <a class="navbar-brand" href="{{path('home_index')}}">PouFa</a>
-            <button class="navbar-toggler d-lg-none" type="button" data-toggle="collapse" data-target="#collapsibleMainNav" aria-controls="collapsibleMainNav"
+        <nav class="navbar navbar-expand-sm navbar-success bg-success nav-menu d-none d-lg-block">
+            <div class="navbar-brand pl-5" style="position: absolute;">
+                <h1 class="logo mr-auto">
+                    <a href="{{path('home')}}" class="logo mr-auto"><img src="{{asset('/img/aims_logo_150x150.png')}}" width="55px" alt="header logo" class="img-fluid" /></a>
+                </h1>
+            </div>
+            <button class="navbar-toggler bg-success d-lg-none" type="button" data-toggle="collapse" data-target="#collapsibleMainNavMenu" aria-controls="collapsibleMainNavMenu"
                 aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="collapsibleMainNav">
-                <div class="navbar-nav mr-auto mt-2 mt-lg-0">
-                    <nav class="nav justify-content-center">
-                        <a class="nav-link" href="{{path('home_index')}}">Home</a>
-                        <a class="nav-link" href="{{path('easyadmin')}}">Admin</a>
-                        <a class="nav-link" href="{{path('market_index')}}">Market</a>
-                        {% if is_granted('ROLE_ADMIN') %}
-                        {# <a class="nav-link" href="{{path('transaction_index')}}">Transactions</a> #}
-                        {# <a class="nav-link" href="{{path('customer_index')}}">Customers</a> #}
-                        {# <a class="nav-link" href="{{path('item_index')}}">Items</a> #}
-                        {# <a class="nav-link" href="{{path('user_index')}}">Employees</a> #}
-                        {% endif %}
-                    </nav>
-                </div>
+            <div class="offset-2 collapse justify-content-between navbar-collapse col-9" id="collapsibleMainNavMenu">
+                {{ knp_menu_render('main', {'currentClass': 'active'}) }}
+                <nav class="nav justify-content-start btn-group">
+                    {% if app.user.roles[0] == 'ROLE_ADMIN' %}
+                        <a class="nav-link btn py-1 px-2 btn-warning" href="{{path('admin')}}">Admin</a>
+                    {% endif %}
+                    <a class="nav-link btn py-1 px-2 btn-danger text-light" href="{{path('app_logout')}}">Sign out</a>
+                </nav>
             </div>
-            <nav class="nav justify-content-end btn-group">
-            {% if is_granted('ROLE_ACCOUNTANT') %}
-                <a role="button" class="btn btn-sm btn-outline-warning nav-link" href="#">Accounts</a>
-            {% endif %}
-                <a role="button" class="btn btn-sm btn-outline-danger nav-link" href="/logout">Sign Out</a>
-            </nav>
         </nav>
     {% else %}
         <nav class="navbar navbar-expand-sm container">
-            <a class="navbar-brand" href="{{path('home_index')}}">PouFa</a>
+            <a class="navbar-brand" href="{{path('home')}}">PouFa</a>
             <button class="navbar-toggler d-lg-none" type="button" data-toggle="collapse" data-target="#collapsibleMainNav" aria-controls="collapsibleMainNav"
                 aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="collapsibleMainNav">
-                <div class="navbar-nav mr-auto mt-2 mt-lg-0">
-                    <nav class="nav justify-content-center">
-                        <a class="nav-link" href="{{path('app_login')}}">Login</a>
-                    </nav>
-                </div>
+            </div>
+            <div class="navbar-nav mr-auto mt-2 mt-lg-0">
+                <nav class="nav justify-content-center">
+                    <a class="btn bg-success text-light nav-link" href="{{path('app_login')}}">Login</a>
+                </nav>
             </div>
         </nav>
     {% endif %}

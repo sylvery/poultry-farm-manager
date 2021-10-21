@@ -9,8 +9,8 @@
             <h1 class="mb-2">{{batch.name}}</h1>
             <div class="btn-group mb-2">
                 <a class="btn btn-primary btn-sm" role="button" href="{{ path('batch_index') }}">Back to list</a>
-                <a class="btn btn-success btn-sm" role="button" href="{{ path('home_index') }}">Go back home</a>
-                <a class="btn btn-outline-secondary btn-sm" role="button" href="{{ path('easyadmin', {entity: 'Batch', action: 'edit', id: batch.id}) }}">Edit this batch</a>
+                <a class="btn btn-success btn-sm" role="button" href="{{ path('home') }}">Go back home</a>
+                {# <a class="btn btn-outline-secondary btn-sm" role="button" href="{{ path('easyadmin', {entity: 'Batch', action: 'edit', id: batch.id}) }}">Edit this batch</a> #}
             </div>
             <table class="table table-sm table-striped">
                 <tbody>
@@ -32,16 +32,16 @@
                     </tr>
                     <tr>
                         <th>Number Birds</th>
-                        {% set totalChickens = batch.numberOfMales + batch.numberOfFemales %}
-                        <td id="totalChickens">{{ totalChickens }}</td>
+                        {% set numberOfSpecimens = batch.numberOfSpecimens %}
+                        <td id="batch.numberOfSpecimens">{{ batch.numberOfSpecimens }}</td>
                     </tr>
                     <tr>
                         <th>Cost to Acquire</th>
-                        <td>K {{ totalChickens * batch.costPerBird }}</td>
+                        <td>K {{ batch.numberOfSpecimens * batch.costPerBird }}</td>
                     </tr>
                     <tr class="h2 bg-info text-dark">
                         <th>Accumulated Costs</th>
-                        {% set accumulatedCosts = totalChickens * batch.costPerBird + batch.getTotalExpenses %}
+                        {% set accumulatedCosts = batch.numberOfSpecimens * batch.costPerBird + batch.getTotalExpenses %}
                         <td class="text-light">K <span id="accumulatedCosts">{{ accumulatedCosts }}</span></td>
                     </tr>
                 </tbody>
@@ -50,7 +50,7 @@
         <div class="col-sm-6 mb-3">
             <h1 class="display-4">Expenses <span class="text-white small bg-warning px-5 py-2 mx-3 rounded-pill">K {{batch.getTotalExpenses}}</span></h1>
             <div class="btn-group">
-                <a class="btn btn-success btn-sm" role="button" href="{{path('easyadmin',{entity: 'Expense', action: 'new' })}}">Add</a>
+                {# <a class="btn btn-success btn-sm" role="button" href="{{path('easyadmin',{entity: 'Expense', action: 'new' })}}">Add</a> #}
             </div>
             <hr>
             <div class="list-group">

@@ -8,8 +8,8 @@
     <div class="row py-3 mb-2">
         <div class="col-sm-12">
             <div class="btn-group">
-                <a class="btn btn-info" href="{{path('easyadmin',{entity: 'Farm', action: 'new'})}}" role="button">Add Farm</a>
-                <a class="btn btn-warning" href="{{path('easyadmin',{entity: 'Batch', action: 'new'})}}" role="button">Add Batch</a>
+                <a class="btn btn-info" href="{{newfarm}}" role="button">Add Farm</a>
+                <a class="btn btn-warning" href="{{newbatch}}" role="button">Add Batch</a>
             </div>
         </div>
         <div class="col-sm-12">
@@ -32,7 +32,7 @@
                         </div>
                         <div class="card-body">
                             <div class="card-text">
-                                <p class="h5">{{batch.numberOfMales + batch.numberOfFemales}} birds</p> 
+                                <p class="h5">{{batch.numberOfSpecimens}} {{batch.category|default('birds')}}</p> 
                                 <p class="small">{{(batch.age/7)|round(1, 'ceil') ~ ' weeks ' ~ batch.category}}</p>
                             </div>
                         </div>
