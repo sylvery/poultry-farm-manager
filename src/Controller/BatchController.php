@@ -2,9 +2,13 @@
 
 namespace App\Controller;
 
+use App\Controller\Admin\BatchCrudController;
+use App\Controller\Admin\ExpenseCrudController;
 use App\Entity\Batch;
 use App\Form\BatchType;
 use App\Repository\BatchRepository;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
+use EasyCorp\Bundle\EasyAdminBundle\Router\AdminUrlGenerator;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -51,10 +55,14 @@ class BatchController extends AbstractController
     /**
      * @Route("/{id}", name="batch_show", methods={"GET"})
      */
-    public function show(Batch $batch): Response
+    public function show(Batch $batch, AdminUrlGenerator $adminUrlGenerator): Response
     {
+        $editbatchurl = $adminUrlGenerator->setController(BatchCrudController::class)->setAction(Action::EDIT)->generateUrl();
+        $newexpenseurl = $adminUrlGenerator->setController(ExpenseCrudController::class)->setAction(Action::NEW)->generateUrl();
         return $this->render('batch/show.html.twig', [
             'batch' => $batch,
+            'editbatchurl' => $editbatchurl,
+            'newexpenseurl' => $newexpenseurl,
         ]);
     }
 

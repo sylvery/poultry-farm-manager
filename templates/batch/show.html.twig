@@ -8,9 +8,9 @@
         <div class="col-sm-6">
             <h1 class="mb-2">{{batch.name}}</h1>
             <div class="btn-group mb-2">
-                <a class="btn btn-primary btn-sm" role="button" href="{{ path('batch_index') }}">Back to list</a>
-                <a class="btn btn-success btn-sm" role="button" href="{{ path('home') }}">Go back home</a>
-                {# <a class="btn btn-outline-secondary btn-sm" role="button" href="{{ path('easyadmin', {entity: 'Batch', action: 'edit', id: batch.id}) }}">Edit this batch</a> #}
+                <a class="btn btn-primary btn-sm px-4" role="button" href="{{ path('batch_index') }}">back to list</a>
+                <a class="btn btn-success btn-sm px-4" role="button" href="{{ path('home') }}">go back home</a>
+                <a class="btn btn-outline-secondary btn-sm px-4" role="button" href="{{ editbatchurl }}">update batch</a>
             </div>
             <table class="table table-sm table-striped">
                 <tbody>
@@ -50,12 +50,12 @@
         <div class="col-sm-6 mb-3">
             <h1 class="display-4">Expenses <span class="text-white small bg-warning px-5 py-2 mx-3 rounded-pill">K {{batch.getTotalExpenses}}</span></h1>
             <div class="btn-group">
-                {# <a class="btn btn-success btn-sm" role="button" href="{{path('easyadmin',{entity: 'Expense', action: 'new' })}}">Add</a> #}
+                <a class="btn btn-success btn-sm" role="button" href="{{ newexpenseurl }}">add expense</a>
             </div>
             <hr>
             <div class="list-group">
             {% for expense in batch.expenses %}
-                <a class="btn btn-sm mb-1 btn-outline-{% if expense.category.name == 'Feed' %}info{% else %}warning{% endif %}" role="button" href="{{path('easyadmin',{action: 'edit', entity: 'Expense', id: expense.id})}}" class="list-group-item list-group-item-action">{{expense.description ~ ' K' ~ expense.amount }} @{{ expense.date|date('D, j F Y')}}</a>
+                <a class="btn btn-sm mb-1 btn-outline-{% if expense.category.name == 'Feed' %}info{% else %}warning{% endif %}" role="button" href="{{path('home',{action: 'edit', entity: 'Expense', id: expense.id})}}" class="list-group-item list-group-item-action">{{expense.description ~ ' K' ~ expense.amount }} @{{ expense.date|date('D, j F Y')}}</a>
             {% endfor %}
             </div>
         </div>
